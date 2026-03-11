@@ -924,3 +924,32 @@ func Test_baseGraph_Cyclic(t *testing.T) {
 		t.Errorf("expected error %s, but got %s", ErrDAGCycle, err)
 	}
 }
+
+func Test_baseGraph_Size(t *testing.T) {
+	graph := New[int]()
+
+	if size := graph.Size(); size != 0 {
+		t.Errorf("expected size %d, but got %d", 0, size)
+	}
+
+	_, err := graph.AddEdge(NewVertex(1), NewVertex(2))
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = graph.AddEdge(NewVertex(2), NewVertex(3))
+	if err != nil {
+		t.Fatal(err)
+	}
+	e3, err := graph.AddEdge(NewVertex(3), NewVertex(1))
+
+	if size := graph.Size(); size != 3 {
+		t.Errorf("expected size %d, but got %d", 3, size)
+	}
+
+	graph.RemoveEdges(e3)
+
+	if size := graph.Size(); size != 2 {
+		t.Errorf("expected size %d, but got %d", 2, size)
+	}
+
+}

@@ -449,5 +449,12 @@ func (g *baseGraph[T]) Order() uint32 {
 
 // Size returns the number of edges in the graph
 func (g *baseGraph[T]) Size() uint32 {
-	return atomic.LoadUint32(&g.edgesCount)
+	size := atomic.LoadUint32(&g.edgesCount)
+
+	// If the graph is undirected, every edge will end up being counted twice
+	if !g.properties.isDirected {
+		size /= 2
+	}
+
+	return size
 }
