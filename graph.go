@@ -137,7 +137,9 @@ type Edge[T comparable] struct {
 }
 
 func NewEdge[T comparable](source *Vertex[T], dest *Vertex[T], options ...EdgeOptionFunc) *Edge[T] {
-	var properties EdgeProperties
+	// use a default weight of 1 to make distance algorithms behave as expected
+	properties := EdgeProperties{weight: 1.0}
+
 	for _, option := range options {
 		option(&properties)
 	}

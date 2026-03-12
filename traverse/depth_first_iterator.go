@@ -1,7 +1,7 @@
 package traverse
 
 import (
-	"github.com/hmdsefi/gograph"
+	"github.com/dq1Mango/gograph"
 )
 
 // depthFirstIterator  is an implementation of the Iterator interface

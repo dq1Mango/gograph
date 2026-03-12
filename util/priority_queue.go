@@ -3,7 +3,7 @@ package util
 import (
 	"container/heap"
 
-	"github.com/hmdsefi/gograph"
+	"github.com/dq1Mango/gograph"
 )
 
 // VertexPriorityQueue wraps the priorityQueue type to decrease the
@@ -54,7 +54,10 @@ type VertexWithPriority[T comparable] struct {
 	index    int
 }
 
-func NewVertexWithPriority[T comparable](vertex *gograph.Vertex[T], priority float64) *VertexWithPriority[T] {
+func NewVertexWithPriority[T comparable](
+	vertex *gograph.Vertex[T],
+	priority float64,
+) *VertexWithPriority[T] {
 	return &VertexWithPriority[T]{vertex: vertex, priority: priority}
 }
 

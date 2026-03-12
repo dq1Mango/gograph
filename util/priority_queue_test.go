@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/hmdsefi/gograph"
+	"github.com/dq1Mango/gograph"
 )
 
 func TestPriorityQueue(t *testing.T) {
