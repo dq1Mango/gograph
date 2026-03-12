@@ -1,6 +1,8 @@
 package gograph
 
-import "sync/atomic"
+import (
+	"sync/atomic"
+)
 
 // baseGraph represents a basic implementation of Graph interface. It
 // supports multiple types of graph.
@@ -458,3 +460,49 @@ func (g *baseGraph[T]) Size() uint32 {
 
 	return size
 }
+
+func (g *baseGraph[T]) Clone() *baseGraph[T] {
+	graph := &baseGraph[T]{properties: g.properties}
+
+	for _, vertex := range g.GetAllVertices() {
+		graph.AddVertex(NewVertex(vertex.Label()))
+	}
+
+	for _, edge := range g.AllEdges() {
+		graph.AddEdge(NewVertex(edge.Source().Label()), NewVertex(edge.Destination().Label()))
+	}
+
+	return graph
+
+}
+
+// func (g *baseGraph[T]) Clone() *baseGraph[T] {
+//
+// 	copiedGraph := baseGraph[T]{
+// 		properties:    g.properties,
+// 		verticesCount: g.verticesCount,
+// 		edgesCount:    g.edgesCount,
+// 	}
+//
+// 	copiedVerticies := make(map[T]*Vertex[T])
+// 	copiedEdges := make(map[T]map[T]*Edge[T])
+//
+// 	for label, vertex := range g.vertices {
+// 		copiedVerticies[label] = NewVertex(vertex.Label())
+// 	}
+//
+// 	for u, edges := range g.edges {
+// 		for v, edge := range edges {
+// 			copiedEdges[u][v] = NewEdge(
+// 				copiedVerticies[edge.Source().Label()],
+// 				copiedVerticies[edge.Destination().Label()],
+// 			)
+// 		}
+// 	}
+//
+// 	copiedGraph.vertices = copiedVerticies
+// 	copiedGraph.edges = copiedEdges
+//
+// 	return &copiedGraph
+//
+// }
