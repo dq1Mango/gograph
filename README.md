@@ -1,9 +1,9 @@
-![build](https://github.com/hmdsefi/gograph/actions/workflows/build.yml/badge.svg)
+<!--![build](https://github.com/hmdsefi/gograph/actions/workflows/build.yml/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/hmdsefi/gograph)](https://goreportcard.com/report/github.com/hmdsefi/gograph)
 [![codecov](https://codecov.io/gh/hmdsefi/gograph/branch/master/graph/badge.svg?token=BstHl9wXTN)](https://codecov.io/gh/hmdsefi/gograph)
 [![Go Reference](https://pkg.go.dev/badge/github.com/hmdsefi/gograph.svg)](https://pkg.go.dev/github.com/hmdsefi/gograph)
 [![Mentioned in Awesome Go](https://awesome.re/mentioned-badge.svg)](https://github.com/avelino/awesome-go#science-and-data-analysis)
-
+-->
 
   <img alt="golang generic graph package" src="https://github.com/user-attachments/assets/b5728572-9c17-47e8-aa32-28aeeedf1e25" height="600" title="gograph"/>
 
