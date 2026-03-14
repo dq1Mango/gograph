@@ -121,6 +121,9 @@ type Graph[T comparable] interface {
 
 	// Size returns the number of edges in the graph
 	Size() uint32
+
+	// Performa a deep copy of the graph
+	Clone() Graph[T]
 }
 
 // New creates a new instance of base graph that implemented the Graph interface.

@@ -461,8 +461,8 @@ func (g *baseGraph[T]) Size() uint32 {
 	return size
 }
 
-func (g *baseGraph[T]) Clone() *baseGraph[T] {
-	graph := &baseGraph[T]{properties: g.properties}
+func (g *baseGraph[T]) Clone() Graph[T] {
+	graph := newBaseGraph[T](g.properties)
 
 	for _, vertex := range g.GetAllVertices() {
 		graph.AddVertex(NewVertex(vertex.Label()))

@@ -6,8 +6,28 @@ import (
 	"github.com/dq1Mango/gograph"
 )
 
+type InvalidPruferCodeError struct{}
+
+func (e *InvalidPruferCodeError) Error() string {
+	return "Prufer Code does not construct valid tree"
+}
+
+type NonTreeError struct{}
+
+func (e *NonTreeError) Error() string {
+	return "Graph is not a tree"
+}
+
 func GraphFromPruferCode(prufer ...uint) (gograph.Graph[uint], error) {
-	sequence := make([]uint, len(prufer)+2)
+	N := uint(len(prufer) + 2)
+
+	for _, p := range prufer {
+		if p >= N {
+			return nil, &InvalidPruferCodeError{}
+		}
+	}
+
+	sequence := make([]uint, N)
 
 	for i := range sequence {
 		sequence[i] = uint(i)
@@ -18,16 +38,19 @@ func GraphFromPruferCode(prufer ...uint) (gograph.Graph[uint], error) {
 	for len(prufer) > 0 {
 
 		var smallest uint
-		for _, i := range sequence {
+		var index int
+		for i, id := range sequence {
 
-			if !slices.Contains(prufer, i) {
-				smallest = i
+			if !slices.Contains(prufer, id) {
+				smallest = id
+				index = i
+				break
 			}
 		}
 
 		graph.AddEdge(gograph.NewVertex(prufer[0]), gograph.NewVertex(smallest))
 
-		sequence = sequence[1:]
+		sequence = slices.Delete(sequence, index, index+1)
 		prufer = prufer[1:]
 	}
 
@@ -37,14 +60,14 @@ func GraphFromPruferCode(prufer ...uint) (gograph.Graph[uint], error) {
 }
 
 func PruferCodeFromGraph(graph gograph.Graph[uint]) ([]uint, error) {
+
+	if graph.Size() != graph.Order()-1 {
+		return nil, &NonTreeError{}
+	}
+
 	verticies := graph.GetAllVertices()
 
-	// ids := make([]uint, len(verticies))
-	//
-	// for i, vertex := range verticies {
-	// 	ids[i] = vertex.Label()
-	// }
-
+	// sort all of the verticies
 	slices.SortFunc(verticies,
 		func(v1, v2 *gograph.Vertex[uint]) int {
 			if v1.Label() > v2.Label() {
@@ -61,37 +84,32 @@ func PruferCodeFromGraph(graph gograph.Graph[uint]) ([]uint, error) {
 
 	for i := range pruferCode {
 
-		var smallest_vertex int
+		var smallest_leaf *int
 		var neighbor uint
 
+		// look for the leaf (1 neighbor) with the smallest label
 		for index, vertex := range verticies {
+
 			// we shall see this counts as a 'leaf' for a directed graph
 			if vertex.InDegree() == 1 {
 				neighbor = vertex.Neighbors()[0].Label()
-				smallest_vertex = index
+				smallest_leaf = &index
+
 				break
 			}
 		}
 
+		// if we fail to find a leaf our graph is not a tree
+		if smallest_leaf == nil {
+			return nil, &NonTreeError{}
+		}
+
 		pruferCode[i] = neighbor
 
-		graph.RemoveVertices(verticies[smallest_vertex])
+		graph.RemoveVertices(verticies[*smallest_leaf])
+		verticies = slices.Delete(verticies, *smallest_leaf, *smallest_leaf+1)
 
-		verticies = slices.Delete(verticies, smallest_vertex, smallest_vertex+1)
 	}
 
 	return pruferCode, nil
 }
-
-// func sliceContains(slice []uint, item uint) bool {
-//
-// 	for _, value := range slice {
-// 		if value == item {
-// 			return false
-// 		}
-// 	}
-//
-// 	return true
-// }
-//
-// func smallest(sequence []uint, set []uint) uint {}
