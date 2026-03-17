@@ -86,7 +86,7 @@ func (g *baseGraph[T]) AddEdge(from, to *Vertex[T], options ...EdgeOptionFunc) (
 	// prevent cycle creation, if graph is acyclic
 	if g.properties.isAcyclic {
 		// If topological sort returns an error, new edges created a cycle
-		_, err := TopologySort[T](g)
+		_, err := TopologySort(g)
 		if err != nil {
 			// Remove the new edges
 			from.neighbors = from.neighbors[:len(from.neighbors)-1]
@@ -459,6 +459,26 @@ func (g *baseGraph[T]) Size() uint32 {
 	}
 
 	return size
+}
+
+func (g *baseGraph[T]) ChangeLabel(oldLabel, newLabel T) {
+	if _, taken := g.vertices[newLabel]; taken {
+		panic("Cannot change label to an existing label")
+	}
+
+	g.vertices[oldLabel].label = newLabel
+
+	g.edges[newLabel] = g.edges[oldLabel]
+	delete(g.edges, oldLabel)
+
+	for u, edges := range g.edges {
+		for v, edge := range edges {
+			if v == oldLabel {
+				g.edges[u][v] = edge
+				delete(g.edges[u], v)
+			}
+		}
+	}
 }
 
 func (g *baseGraph[T]) Clone() Graph[T] {

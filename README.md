@@ -31,7 +31,7 @@ educational purposes and practical applications.</p>
 Use `go get` command to get the latest version of the `gograph`:
 
 ```shell
-go get github.com/dq1Mango/gograph
+go get github.com/hmdsefi/gograph
 ```
 
 Then you can use import the `gograph` to your code:
@@ -39,7 +39,7 @@ Then you can use import the `gograph` to your code:
 ```go
 package main
 
-import "github.com/dq1Mango/gograph"
+import "github.com/hmdsefi/gograph"
 ```
 
 ## How to Use

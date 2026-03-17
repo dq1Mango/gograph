@@ -100,7 +100,12 @@ func TestRandomWalkIterator_Iterate(t *testing.T) {
 	expected := []int{1, 2, 1, 2, 1, 2, 1, 2, 1, 2}
 	for i := 0; i < len(expected); i++ {
 		if visited[i] != expected[i] {
-			t.Errorf("Expected visited vertex at step %d to be %d, but it was %d", i, expected[i], visited[i])
+			t.Errorf(
+				"Expected visited vertex at step %d to be %d, but it was %d",
+				i,
+				expected[i],
+				visited[i],
+			)
 		}
 	}
 

@@ -41,7 +41,11 @@ func TestTopologyOrderIterator(t *testing.T) {
 
 		v := iterator.Next()
 		if v.Label() != expectedOrder[i] {
-			t.Errorf("Expected iterator.Next().Label() to be %d, but got %d", expectedOrder[i], v.Label())
+			t.Errorf(
+				"Expected iterator.Next().Label() to be %d, but got %d",
+				expectedOrder[i],
+				v.Label(),
+			)
 		}
 	}
 
@@ -71,7 +75,11 @@ func TestTopologyOrderIterator(t *testing.T) {
 	err = iterator.Iterate(
 		func(vertex *gograph.Vertex[int]) error {
 			if vertex.Label() != expectedOrder[j] {
-				t.Errorf("Expected vertex.Label() to be %+v, but got %+v", expectedOrder[j], vertex.Label())
+				t.Errorf(
+					"Expected vertex.Label() to be %+v, but got %+v",
+					expectedOrder[j],
+					vertex.Label(),
+				)
 			}
 
 			j++

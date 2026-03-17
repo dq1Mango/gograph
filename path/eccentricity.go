@@ -3,7 +3,7 @@ package path
 import (
 	"math"
 
-	"github.com/dq1Mango/gograph"
+	"github.com/hmdsefi/gograph"
 )
 
 // Essentially just wrapper on dijkstras, but i want it anyway

@@ -3,7 +3,7 @@ package util
 import (
 	"slices"
 
-	"github.com/dq1Mango/gograph"
+	"github.com/hmdsefi/gograph"
 )
 
 type InvalidPruferCodeError struct{}
@@ -60,6 +60,11 @@ func GraphFromPruferCode(prufer ...uint) (gograph.Graph[uint], error) {
 }
 
 func PruferCodeFromGraph(graph gograph.Graph[uint]) ([]uint, error) {
+
+	// ensure our graph is *probably* a tree
+	if graph.Size() < 2 {
+		return nil, &NonTreeError{}
+	}
 
 	if graph.Size() != graph.Order()-1 {
 		return nil, &NonTreeError{}

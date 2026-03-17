@@ -5,7 +5,7 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/dq1Mango/gograph"
+	"github.com/hmdsefi/gograph"
 )
 
 func graphAndCode() (gograph.Graph[uint], []uint) {

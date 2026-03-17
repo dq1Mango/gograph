@@ -1,4 +1,4 @@
-module github.com/dq1Mango/gograph
+module github.com/hmdsefi/gograph
 
 go 1.24.2
 

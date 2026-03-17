@@ -116,6 +116,9 @@ type Graph[T comparable] interface {
 	// If the specified vertex is nil, returns 'false'.
 	ContainsVertex(v *Vertex[T]) bool
 
+	// Change the label of a vertex
+	ChangeLabel(oldLabel, newLabel T)
+
 	// Order returns the number of vertices in the graph.
 	Order() uint32
 
@@ -252,7 +255,7 @@ func (v *Vertex[T]) Neighbors() []*Vertex[T] {
 	return neighbors
 }
 
-// Label returns vertex label.
+// Label returns vertex id.
 func (v *Vertex[T]) Label() T {
 	return v.label
 }

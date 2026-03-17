@@ -108,7 +108,12 @@ func TestClosestFirstIterator_Iterate(t *testing.T) {
 	expected := []string{"A", "B", "C", "D"}
 	for i := 0; i < len(expected); i++ {
 		if visited[i] != expected[i] {
-			t.Errorf("Expected visited vertex at step %d to be %s, but it was %s", i, expected[i], visited[i])
+			t.Errorf(
+				"Expected visited vertex at step %d to be %s, but it was %s",
+				i,
+				expected[i],
+				visited[i],
+			)
 		}
 	}
 
