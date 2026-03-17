@@ -480,7 +480,7 @@ func (g *baseGraph[T]) ChangeLabel(oldLabel, newLabel T) {
 	for u, edges := range g.edges {
 		for v, edge := range edges {
 			if v == oldLabel {
-				g.edges[u][v] = edge
+				g.edges[u][newLabel] = edge
 				delete(g.edges[u], v)
 			}
 		}

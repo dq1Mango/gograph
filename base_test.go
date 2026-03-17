@@ -953,3 +953,47 @@ func Test_baseGraph_Size(t *testing.T) {
 	}
 
 }
+
+func Test_baseGraph_ChangeLabel(t *testing.T) {
+
+	graph := New[int]()
+
+	graph.AddEdge(NewVertex(1), NewVertex(2))
+	graph.AddEdge(NewVertex(2), NewVertex(3))
+
+	v2 := graph.GetVertexByID(2)
+
+	graph.ChangeLabel(2, 4)
+
+	alsoV2 := graph.GetVertexByID(4)
+
+	if v2 != alsoV2 {
+		t.Errorf("Failed to change label from")
+	}
+
+	if v2.Label() != 4 {
+		t.Errorf("Failed to change label from")
+
+	}
+
+	if e := graph.GetEdge(NewVertex(1), NewVertex(4)); e == nil {
+		t.Errorf("Missing edge: 1,4")
+	}
+	if e := graph.GetEdge(NewVertex(4), NewVertex(3)); e == nil {
+		t.Errorf("Missing edge: 3,4")
+	}
+
+	if graph.Size() != 2 {
+		t.Errorf("Extra edges")
+	}
+
+	// expected := New[int]()
+	//
+	// expected.AddEdge(NewVertex(1), NewVertex(4))
+	// expected.AddEdge(NewVertex(4), NewVertex(3))
+	//
+	// theSame := true
+	// expected.GetEdge()
+	// if expected.AllEdges()
+
+}
