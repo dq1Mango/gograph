@@ -1,6 +1,7 @@
 package gograph
 
 import (
+	"fmt"
 	"sync/atomic"
 )
 
@@ -465,6 +466,8 @@ func (g *baseGraph[T]) ChangeLabel(oldLabel, newLabel T) {
 	if _, taken := g.vertices[newLabel]; taken {
 		panic("Cannot change label to an existing label")
 	}
+
+	fmt.Println("wow look at me im a meeseeks")
 
 	vertex := g.vertices[oldLabel]
 	vertex.label = newLabel
