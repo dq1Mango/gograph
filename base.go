@@ -466,7 +466,10 @@ func (g *baseGraph[T]) ChangeLabel(oldLabel, newLabel T) {
 		panic("Cannot change label to an existing label")
 	}
 
-	g.vertices[oldLabel].label = newLabel
+	vertex := g.vertices[oldLabel]
+	vertex.label = newLabel
+	g.vertices[newLabel] = vertex
+	delete(g.vertices, oldLabel)
 
 	g.edges[newLabel] = g.edges[oldLabel]
 	delete(g.edges, oldLabel)
