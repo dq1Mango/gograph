@@ -1,7 +1,8 @@
 package gograph
 
 import (
-	"fmt"
+	// "fmt"
+	"maps"
 	"sync/atomic"
 )
 
@@ -467,22 +468,37 @@ func (g *baseGraph[T]) ChangeLabel(oldLabel, newLabel T) {
 		panic("Cannot change label to an existing label")
 	}
 
-	fmt.Println("wow look at me im a meeseeks")
+	if _, exists := g.vertices[oldLabel]; !exists {
+		panic("oldLabel does not exist")
+	}
 
 	vertex := g.vertices[oldLabel]
 	vertex.label = newLabel
 	g.vertices[newLabel] = vertex
 	delete(g.vertices, oldLabel)
 
-	g.edges[newLabel] = g.edges[oldLabel]
-	delete(g.edges, oldLabel)
+	// edges := g.edges[oldLabel]
+	// fmt.Println("edgeds: ", edges)
+	// g.edges[newLabel] = edges
+	g.edges[newLabel] = map[T]*Edge[T]{}
+	maps.Copy(g.edges[newLabel], g.edges[oldLabel])
+	clear(g.edges[oldLabel])
+	// fmt.Println("bruh: ", g.edges[newLabel])
+
+	// fmt.Println(g.edges[newLabel])
+	// for dest, edge := range {
+
+	// g.edges[oldLabel][newLabel] = &Edge[T]{}
+
+	// }
+	// for dest, edge := range g.edges[newLabel] {
+	// 	edge.Source()
+	// }
 
 	for u, edges := range g.edges {
-		for v, edge := range edges {
-			if v == oldLabel {
-				g.edges[u][newLabel] = edge
-				delete(g.edges[u], v)
-			}
+		if edge, ok := edges[oldLabel]; ok {
+			g.edges[u][newLabel] = edge
+			delete(g.edges[u], oldLabel)
 		}
 	}
 }

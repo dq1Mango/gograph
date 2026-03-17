@@ -984,16 +984,19 @@ func Test_baseGraph_ChangeLabel(t *testing.T) {
 	}
 
 	if graph.Size() != 2 {
-		t.Errorf("Extra edges")
+		t.Errorf("expected: %d edges, got %d edges", 2, graph.Size())
 	}
 
-	// expected := New[int]()
-	//
-	// expected.AddEdge(NewVertex(1), NewVertex(4))
-	// expected.AddEdge(NewVertex(4), NewVertex(3))
-	//
-	// theSame := true
-	// expected.GetEdge()
-	// if expected.AllEdges()
+	graph.AddEdge(NewVertex(2), NewVertex(4))
+
+	garph := New[int]()
+
+	garph.AddEdge(NewVertex(1), NewVertex(2))
+	garph.AddEdge(NewVertex(2), NewVertex(3))
+
+	garph.RemoveVertices(NewVertex(2))
+	garph.ChangeLabel(3, 2)
+
+	garph.AddEdge(NewVertex(2), NewVertex(3))
 
 }
